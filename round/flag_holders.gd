@@ -15,17 +15,17 @@ var flags: int
 @export_range(0, MAX_WIDTH) var width: int
 
 ## Constructor.
-## flags is a binary value where 1 corresponds to green flag and 0 corresponds
+## init_flags is a binary value where 1 corresponds to green flag and 0 corresponds
 ## to red flag, should be no longer than MAX_WIDTH bits wide.
-## width is the number of flag holders to use, i.e, the bit width, should be no
+## set_width is the number of flag holders to use, i.e, the bit width, should be no
 ## no more than MAX_WIDTH
-func _init(flags: int = 0b0, width: int = 0):
-	if ((flags & ~MAX_WIDTH_MASK) > 0):
+func _init(init_flags: int = 0b0, set_width: int = 0):
+	if ((init_flags & ~MAX_WIDTH_MASK) > 0):
 		print_debug("Flags is too large, masking to max width")
-		flags = flags & 0xFF
-	if (width > MAX_WIDTH):
+		init_flags = init_flags & 0xFF
+	if (set_width > MAX_WIDTH):
 		print_debug("Bit width is too large, capping to max width")
-		width = max(width, MAX_WIDTH)
+		set_width = max(set_width, MAX_WIDTH)
 	
-	self.flags = flags
-	self.width = width
+	self.flags = init_flags
+	self.width = set_width
