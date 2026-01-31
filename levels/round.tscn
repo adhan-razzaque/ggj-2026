@@ -17,9 +17,3 @@ metadata/_custom_type_script = "uid://6ggkcgl3gk5m"
 [node name="StartPoint" type="Node" parent="." unique_id=1180382835]
 script = ExtResource("2_v3e7h")
 metadata/_custom_type_script = "uid://6ggkcgl3gk5m"
-
-[node name="Timer" type="Timer" parent="." unique_id=1289000396]
-wait_time = 0.25
-autostart = true
-
-[connection signal="timeout" from="Timer" to="." method="on_tick"]
