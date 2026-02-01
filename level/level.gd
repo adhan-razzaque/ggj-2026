@@ -6,11 +6,16 @@ signal round_begun(new_round: Round)
 signal new_player_selected(new_player: FlagHolders)
 signal new_answer_selected(new_answer: FlagHolders)
 signal new_choice_selected(new_choice: FlagHolders)
+signal level_complete()
+signal level_lost()
+signal level_lives_changed(lives_left: int)
 
 # Properties
 @export_file("*.txt") var success_phrases_path: String
 @export_file("*.tscn") var next_scene_path: String
 @export var autostart: bool = true
+@export var endless: bool = false
+@export var lives: int = 3
 
 
 # Variables
@@ -29,10 +34,6 @@ var current_round: Round:
 func _ready() -> void:
 	load_success_phrases()
 	load_rounds()
-	
-	if not autostart:
-		return
-	
 	next_round()
 
 ## Load the success phrases from the provided text file
@@ -70,6 +71,10 @@ func next_round() -> void:
 		end_level()
 		return
 	current_round_index += 1
+	
+	if not autostart:
+		return
+	
 	start_round()
 	
 	
@@ -87,6 +92,8 @@ func start_round() -> void:
 ## End Level
 func end_level() -> void:
 	print_debug("You reached end of level...")
+	level_complete.emit()
+	
 	if next_scene_path.is_empty or !FileAccess.file_exists(next_scene_path):
 		return
 		
@@ -109,9 +116,18 @@ func _on_round_over(won: bool) -> void:
 		success_phrase.emit(success_string)
 		audio_player.stop()
 		next_round()
-	else:
-		print_debug("You lost, try again...")
-		start_round()
+		return
+	
+	if endless:
+		lives -= 1
+		level_lives_changed.emit(lives)
+	
+	if lives == 0:
+		level_lost.emit()
+		return
+	
+	print_debug("You lost, try again...")
+	start_round()
 		
 func _on_player_state_changed(new_state: FlagHolders) -> void:
 	new_player_selected.emit(new_state)

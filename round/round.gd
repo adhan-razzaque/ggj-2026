@@ -150,3 +150,6 @@ func submit_answer(operator: Operators) -> void:
 		return
 	
 	end_game(won_round)
+	
+func randomize_round() -> void:
+	pass

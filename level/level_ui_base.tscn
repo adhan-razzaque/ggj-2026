@@ -27,7 +27,7 @@ offset_top = 276.0
 offset_right = 299.0
 offset_bottom = 308.0
 
-[node name="ControlsUIContainer" type="MarginContainer" parent="." unique_id=505083090 node_paths=PackedStringArray("operator_container", "choice_container", "submit_button")]
+[node name="ControlsUIContainer" type="MarginContainer" parent="." unique_id=505083090 node_paths=PackedStringArray("operator_container", "choice_container", "submit_button", "reset_button")]
 offset_left = 485.0
 offset_top = 85.0
 offset_right = 627.0
@@ -35,7 +35,8 @@ offset_bottom = 360.0
 script = ExtResource("4_fm06m")
 operator_container = NodePath("VBoxContainer/OperatorContainer")
 choice_container = NodePath("VBoxContainer/ChoiceContainer")
-submit_button = NodePath("VBoxContainer/CenterContainer/SubmitButton")
+submit_button = NodePath("VBoxContainer/SubmitButton")
+reset_button = NodePath("VBoxContainer/ResetButton")
 operator_button_group = SubResource("ButtonGroup_qotdi")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="ControlsUIContainer" unique_id=949823908]
@@ -60,17 +61,20 @@ text = "AND"
 [node name="ChoiceContainer" type="HBoxContainer" parent="ControlsUIContainer/VBoxContainer" unique_id=1871790874]
 layout_mode = 2
 
-[node name="CenterContainer" type="CenterContainer" parent="ControlsUIContainer/VBoxContainer" unique_id=1965484257]
+[node name="SubmitButton" type="Button" parent="ControlsUIContainer/VBoxContainer" unique_id=1956454843]
 layout_mode = 2
-
-[node name="SubmitButton" type="Button" parent="ControlsUIContainer/VBoxContainer/CenterContainer" unique_id=1956454843]
-layout_mode = 2
+size_flags_horizontal = 4
 text = "Submit"
+
+[node name="ResetButton" type="Button" parent="ControlsUIContainer/VBoxContainer" unique_id=434117457]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Reset"
 
 [node name="LevelBase" parent="." unique_id=1262444287 instance=ExtResource("3_w6fek")]
 
 [node name="Round" parent="LevelBase" unique_id=199965638 instance=ExtResource("4_tlipp")]
-operators = Array[int]([0, 1])
+operators = Array[int]([0, 1, 2])
 
 [connection signal="new_answer_selected" from="LevelBase" to="Wall/WallSprite/CorrectDisplay" method="build_player_texture"]
 [connection signal="new_choice_selected" from="LevelBase" to="ControlsUIContainer/VBoxContainer/ChoiceDisplay" method="build_player_texture"]

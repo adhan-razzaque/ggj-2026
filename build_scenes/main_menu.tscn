@@ -19,6 +19,7 @@ credits_button = NodePath("MarginContainer/VBoxContainer/MenuOptions/Credits")
 exit_button = NodePath("MarginContainer/VBoxContainer/MenuOptions/Exit")
 
 [node name="TextureRect" type="TextureRect" parent="." unique_id=320687187]
+modulate = Color(0.24477637, 0.2447764, 0.24477637, 1)
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0

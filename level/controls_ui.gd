@@ -3,6 +3,7 @@ class_name ControlsUI extends Control
 @export var operator_container: Container
 @export var choice_container: Container
 @export var submit_button: Button
+@export var reset_button: Button
 @export var operator_button_group: ButtonGroup
 
 var current_round: Round
@@ -11,6 +12,7 @@ var pressed_once: bool
 
 func _ready() -> void:
 	submit_button.pressed.connect(on_submit_pressed)
+	reset_button.pressed.connect(on_reset_pressed)
 	clear_operators()
 	submit_button.hide()
 	
@@ -58,3 +60,6 @@ func on_submit_pressed() -> void:
 	if not pressed_once:
 		return
 	current_round.submit_answer(current_operator)
+	
+func on_reset_pressed() -> void:
+	current_round.reset_answer()
