@@ -11,14 +11,20 @@ var pressed_once: bool
 
 func _ready() -> void:
 	submit_button.pressed.connect(on_submit_pressed)
-
-func on_round_begun(new_round: Round) -> void:
-	pressed_once = false
-	current_round = new_round
+	clear_operators()
+	submit_button.hide()
+	
+func clear_operators() -> void:
 	var children := operator_container.get_children()
 	children.append_array(choice_container.get_children())
 	for child: Node in children:
 		child.queue_free()
+
+func on_round_begun(new_round: Round) -> void:
+	pressed_once = false
+	current_round = new_round
+	clear_operators()
+	submit_button.show()
 	
 	for operator in new_round.operators:	
 		var button: Button = Button.new()

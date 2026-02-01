@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://b1pjx3qk33gmt"]
 
 [ext_resource type="Script" uid="uid://b4js5bbt3to4c" path="res://level/level.gd" id="1_p5upd"]
+[ext_resource type="AudioStream" uid="uid://7vxmiiwd6ipi" path="res://level/main_v2_loopable.wav" id="2_01rkt"]
 
 [node name="LevelBase" type="Node" unique_id=1262444287]
 script = ExtResource("1_p5upd")
@@ -9,5 +10,8 @@ metadata/_custom_type_script = "uid://b4js5bbt3to4c"
 
 [node name="Timer" type="Timer" parent="." unique_id=815341611]
 wait_time = 0.25
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=1366348460]
+stream = ExtResource("2_01rkt")
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

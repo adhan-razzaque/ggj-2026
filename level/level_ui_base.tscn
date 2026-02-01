@@ -16,6 +16,12 @@ position = Vector2(349, 86)
 script = ExtResource("1_qmiyr")
 metadata/_custom_type_script = "uid://cukneud56fc1"
 
+[node name="LaneSprite" type="Sprite2D" parent="Wall" unique_id=629204087]
+position = Vector2(-106.99998, 110)
+rotation = 0.9388088
+scale = Vector2(0.81428784, 2.1308494)
+texture = ExtResource("2_7ak56")
+
 [node name="WallSprite" type="Sprite2D" parent="Wall" unique_id=492248415]
 texture = ExtResource("2_7ak56")
 
@@ -26,7 +32,7 @@ offset_right = 110.0
 offset_bottom = 36.0
 
 [node name="Line2D" type="Line2D" parent="Wall" unique_id=1791392133]
-points = PackedVector2Array(0, 0, -197, 207)
+points = PackedVector2Array(0, 0, -184, 160)
 width = 0.0
 default_color = Color(0, 0, 0, 0)
 
@@ -55,12 +61,21 @@ operator_button_group = SubResource("ButtonGroup_qotdi")
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/ControlsUIContainer" unique_id=949823908]
 layout_mode = 2
 
-[node name="OperatorContainer" type="HBoxContainer" parent="MarginContainer/ControlsUIContainer/VBoxContainer" unique_id=1011830265]
-layout_mode = 2
-
 [node name="ChoiceDisplay" parent="MarginContainer/ControlsUIContainer/VBoxContainer" unique_id=709871913 instance=ExtResource("6_qotdi")]
 custom_minimum_size = Vector2(0, 64)
 layout_mode = 2
+
+[node name="OperatorContainer" type="HBoxContainer" parent="MarginContainer/ControlsUIContainer/VBoxContainer" unique_id=1011830265]
+layout_mode = 2
+alignment = 1
+
+[node name="Button" type="Button" parent="MarginContainer/ControlsUIContainer/VBoxContainer/OperatorContainer" unique_id=1576123565]
+layout_mode = 2
+text = "OR"
+
+[node name="Button2" type="Button" parent="MarginContainer/ControlsUIContainer/VBoxContainer/OperatorContainer" unique_id=1647908625]
+layout_mode = 2
+text = "AND"
 
 [node name="ChoiceContainer" type="HBoxContainer" parent="MarginContainer/ControlsUIContainer/VBoxContainer" unique_id=1871790874]
 layout_mode = 2
@@ -74,10 +89,10 @@ text = "Submit"
 
 [node name="PlayerDisplay" parent="MarginContainer" unique_id=786894169 instance=ExtResource("6_qotdi")]
 layout_mode = 0
-offset_left = -1.0
-offset_top = 295.0
-offset_right = 268.0
-offset_bottom = 359.0
+offset_left = 25.0
+offset_top = 223.0
+offset_right = 294.0
+offset_bottom = 287.0
 
 [node name="LevelBase" parent="." unique_id=1262444287 instance=ExtResource("3_w6fek")]
 

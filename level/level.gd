@@ -10,6 +10,7 @@ signal new_choice_selected(new_choice: FlagHolders)
 # Properties
 @export_file("*.txt") var success_phrases_path: String
 @export_file("*.tscn") var next_scene_path: String
+@export var autostart: bool = true
 
 
 # Variables
@@ -17,6 +18,7 @@ var success_phrases: Array[String] = []
 var rounds: Array[Round] = []
 var current_round_index: int = -1
 @onready var timer: Timer = $Timer as Timer
+@onready var audio_player: AudioStreamPlayer = $AudioStreamPlayer
 
 var current_round: Round:
 	get:
@@ -28,8 +30,10 @@ func _ready() -> void:
 	load_success_phrases()
 	load_rounds()
 	
-	var start_timer = get_tree().create_timer(3.0)
-	start_timer.timeout.connect(next_round)
+	if not autostart:
+		return
+	
+	next_round()
 
 ## Load the success phrases from the provided text file
 func load_success_phrases() -> void:
@@ -74,6 +78,7 @@ func start_round() -> void:
 	current_round.player_state_changed.connect(_on_player_state_changed)
 	current_round.start_game()
 	timer.start()
+	audio_player.play()
 	round_begun.emit(current_round)
 	new_player_selected.emit(current_round.current_flags)
 	new_answer_selected.emit(current_round.correct_answer)
@@ -81,8 +86,11 @@ func start_round() -> void:
 		
 ## End Level
 func end_level() -> void:
+	print_debug("You reached end of level...")
 	if next_scene_path.is_empty or !FileAccess.file_exists(next_scene_path):
 		return
+		
+	print_debug("Switching to next scene")
 	get_tree().change_scene_to_file(next_scene_path)
 	
 
@@ -99,6 +107,7 @@ func _on_round_over(won: bool) -> void:
 		print_debug("You won, moving to next round...")
 		var success_string: String = success_phrases.pick_random()
 		success_phrase.emit(success_string)
+		audio_player.stop()
 		next_round()
 	else:
 		print_debug("You lost, try again...")

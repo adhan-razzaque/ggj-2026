@@ -45,6 +45,8 @@ enum Operators {
 ## That limit wall can reach before game is over
 @export var wall_limit: int = 10
 
+@export var wall_move_delay: float = 3.0
+
 # Variables
 
 ## Tracks wall movement rate to decide when to move to next step
@@ -58,6 +60,8 @@ var round_active: bool
 
 ## The current state of round flags
 var current_flags: FlagHolders
+
+var wall_moving: bool
 
 # Methods
 
@@ -79,6 +83,13 @@ func start_game() -> void:
 	wall_position = 0
 	reset_answer()
 	round_active = true
+	
+	if wall_move_delay == 0.:
+		wall_moving = true
+	else:
+		wall_moving = false
+		var start_timer = get_tree().create_timer(wall_move_delay)
+		start_timer.timeout.connect(func (): wall_moving = true)
 	
 
 func end_game(round_won: bool) -> void:
@@ -108,7 +119,7 @@ func on_tick() -> void:
 	if (!lost_round):
 		return
 		
-	end_game(lost_round)
+	end_game(false)
 	
 ## Resets stored answer to the start point
 func reset_answer() -> void:
