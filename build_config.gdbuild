@@ -295,7 +295,6 @@
 		"ResourceFormatLoader",
 		"ResourceFormatSaver",
 		"ResourceImporter",
-		"ResourceLoader",
 		"ResourcePreloader",
 		"ResourceSaver",
 		"ResourceUID",

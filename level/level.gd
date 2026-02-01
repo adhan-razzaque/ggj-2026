@@ -102,7 +102,7 @@ func end_level() -> void:
 	audio_player.stop()
 	save_score()
 	
-	if next_scene_path.is_empty() or !FileAccess.file_exists(next_scene_path):
+	if next_scene_path.is_empty() or !ResourceLoader.exists(next_scene_path):
 		print_debug("not switching scenes")
 		return
 		
@@ -121,8 +121,6 @@ func _on_round_over(won: bool) -> void:
 	
 	if won:
 		print_debug("You won, moving to next round...")
-		var success_string: String = success_phrases.pick_random()
-		success_phrase.emit(success_string)
 		score += 1
 		next_round()
 		return
