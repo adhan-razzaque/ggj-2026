@@ -1,56 +1,36 @@
 [gd_scene format=3 uid="uid://dg0xd8qls8q5a"]
 
-[ext_resource type="Script" uid="uid://cukneud56fc1" path="res://wall/wall.gd" id="1_qmiyr"]
-[ext_resource type="Texture2D" uid="uid://c2tos1omse0cv" path="res://icon.svg" id="2_7ak56"]
+[ext_resource type="PackedScene" uid="uid://uyx8jr141fyw" path="res://wall/wall.tscn" id="1_tlipp"]
 [ext_resource type="PackedScene" uid="uid://b1pjx3qk33gmt" path="res://level/level_base.tscn" id="3_w6fek"]
 [ext_resource type="Script" uid="uid://jjcwacdl1ybs" path="res://level/controls_ui.gd" id="4_fm06m"]
 [ext_resource type="PackedScene" uid="uid://dckd2y6i0iely" path="res://round/round.tscn" id="4_tlipp"]
 [ext_resource type="PackedScene" uid="uid://cd0wkkmk0h4of" path="res://player/player_display.tscn" id="6_qotdi"]
+[ext_resource type="Texture2D" uid="uid://c1rg8ef2plspr" path="res://level/background.png" id="6_ug7r8"]
 
 [sub_resource type="ButtonGroup" id="ButtonGroup_qotdi"]
 
 [node name="LevelUiBase" type="Node2D" unique_id=566148448]
 
-[node name="Wall" type="Node2D" parent="." unique_id=963792758]
-position = Vector2(349, 86)
-script = ExtResource("1_qmiyr")
-metadata/_custom_type_script = "uid://cukneud56fc1"
+[node name="BackgroundSprite" type="Sprite2D" parent="." unique_id=271031812]
+position = Vector2(320, 180)
+texture = ExtResource("6_ug7r8")
 
-[node name="LaneSprite" type="Sprite2D" parent="Wall" unique_id=629204087]
-position = Vector2(-106.99998, 110)
-rotation = 0.9388088
-scale = Vector2(0.81428784, 2.1308494)
-texture = ExtResource("2_7ak56")
+[node name="Wall" parent="." unique_id=980710243 instance=ExtResource("1_tlipp")]
+position = Vector2(420, 177)
 
-[node name="WallSprite" type="Sprite2D" parent="Wall" unique_id=492248415]
-texture = ExtResource("2_7ak56")
+[node name="Line2D" parent="Wall" index="1" unique_id=264821457]
+points = PackedVector2Array(0, 0, -254, 70)
 
-[node name="CorrectDisplay" parent="Wall/WallSprite" unique_id=699561014 instance=ExtResource("6_qotdi")]
-offset_left = -109.0
-offset_top = -28.0
-offset_right = 110.0
-offset_bottom = 36.0
+[node name="PlayerDisplay" parent="." unique_id=786894169 instance=ExtResource("6_qotdi")]
+offset_left = 30.0
+offset_top = 276.0
+offset_right = 299.0
+offset_bottom = 308.0
 
-[node name="Line2D" type="Line2D" parent="Wall" unique_id=1791392133]
-points = PackedVector2Array(0, 0, -184, 160)
-width = 0.0
-default_color = Color(0, 0, 0, 0)
-
-[node name="MarginContainer" type="Control" parent="." unique_id=1456249942]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_right = 640.0
-offset_bottom = 360.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="ControlsUIContainer" type="MarginContainer" parent="MarginContainer" unique_id=505083090 node_paths=PackedStringArray("operator_container", "choice_container", "submit_button")]
-layout_mode = 0
-offset_left = 303.0
-offset_top = 168.0
-offset_right = 640.0
+[node name="ControlsUIContainer" type="MarginContainer" parent="." unique_id=505083090 node_paths=PackedStringArray("operator_container", "choice_container", "submit_button")]
+offset_left = 485.0
+offset_top = 85.0
+offset_right = 627.0
 offset_bottom = 360.0
 script = ExtResource("4_fm06m")
 operator_container = NodePath("VBoxContainer/OperatorContainer")
@@ -58,41 +38,34 @@ choice_container = NodePath("VBoxContainer/ChoiceContainer")
 submit_button = NodePath("VBoxContainer/CenterContainer/SubmitButton")
 operator_button_group = SubResource("ButtonGroup_qotdi")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/ControlsUIContainer" unique_id=949823908]
+[node name="VBoxContainer" type="VBoxContainer" parent="ControlsUIContainer" unique_id=949823908]
 layout_mode = 2
 
-[node name="ChoiceDisplay" parent="MarginContainer/ControlsUIContainer/VBoxContainer" unique_id=709871913 instance=ExtResource("6_qotdi")]
+[node name="ChoiceDisplay" parent="ControlsUIContainer/VBoxContainer" unique_id=709871913 instance=ExtResource("6_qotdi")]
 custom_minimum_size = Vector2(0, 64)
 layout_mode = 2
 
-[node name="OperatorContainer" type="HBoxContainer" parent="MarginContainer/ControlsUIContainer/VBoxContainer" unique_id=1011830265]
+[node name="OperatorContainer" type="HBoxContainer" parent="ControlsUIContainer/VBoxContainer" unique_id=1011830265]
 layout_mode = 2
 alignment = 1
 
-[node name="Button" type="Button" parent="MarginContainer/ControlsUIContainer/VBoxContainer/OperatorContainer" unique_id=1576123565]
+[node name="Button" type="Button" parent="ControlsUIContainer/VBoxContainer/OperatorContainer" unique_id=1576123565]
 layout_mode = 2
 text = "OR"
 
-[node name="Button2" type="Button" parent="MarginContainer/ControlsUIContainer/VBoxContainer/OperatorContainer" unique_id=1647908625]
+[node name="Button2" type="Button" parent="ControlsUIContainer/VBoxContainer/OperatorContainer" unique_id=1647908625]
 layout_mode = 2
 text = "AND"
 
-[node name="ChoiceContainer" type="HBoxContainer" parent="MarginContainer/ControlsUIContainer/VBoxContainer" unique_id=1871790874]
+[node name="ChoiceContainer" type="HBoxContainer" parent="ControlsUIContainer/VBoxContainer" unique_id=1871790874]
 layout_mode = 2
 
-[node name="CenterContainer" type="CenterContainer" parent="MarginContainer/ControlsUIContainer/VBoxContainer" unique_id=1965484257]
+[node name="CenterContainer" type="CenterContainer" parent="ControlsUIContainer/VBoxContainer" unique_id=1965484257]
 layout_mode = 2
 
-[node name="SubmitButton" type="Button" parent="MarginContainer/ControlsUIContainer/VBoxContainer/CenterContainer" unique_id=1956454843]
+[node name="SubmitButton" type="Button" parent="ControlsUIContainer/VBoxContainer/CenterContainer" unique_id=1956454843]
 layout_mode = 2
 text = "Submit"
-
-[node name="PlayerDisplay" parent="MarginContainer" unique_id=786894169 instance=ExtResource("6_qotdi")]
-layout_mode = 0
-offset_left = 25.0
-offset_top = 223.0
-offset_right = 294.0
-offset_bottom = 287.0
 
 [node name="LevelBase" parent="." unique_id=1262444287 instance=ExtResource("3_w6fek")]
 
@@ -100,7 +73,9 @@ offset_bottom = 287.0
 operators = Array[int]([0, 1])
 
 [connection signal="new_answer_selected" from="LevelBase" to="Wall/WallSprite/CorrectDisplay" method="build_player_texture"]
-[connection signal="new_choice_selected" from="LevelBase" to="MarginContainer/ControlsUIContainer/VBoxContainer/ChoiceDisplay" method="build_player_texture"]
-[connection signal="new_player_selected" from="LevelBase" to="MarginContainer/PlayerDisplay" method="build_player_texture"]
+[connection signal="new_choice_selected" from="LevelBase" to="ControlsUIContainer/VBoxContainer/ChoiceDisplay" method="build_player_texture"]
+[connection signal="new_player_selected" from="LevelBase" to="PlayerDisplay" method="build_player_texture"]
 [connection signal="round_begun" from="LevelBase" to="Wall" method="_on_round_begun"]
-[connection signal="round_begun" from="LevelBase" to="MarginContainer/ControlsUIContainer" method="on_round_begun"]
+[connection signal="round_begun" from="LevelBase" to="ControlsUIContainer" method="on_round_begun"]
+
+[editable path="Wall"]

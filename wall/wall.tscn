@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://uyx8jr141fyw"]
+
+[ext_resource type="Script" uid="uid://cukneud56fc1" path="res://wall/wall.gd" id="1_1w5xe"]
+[ext_resource type="Texture2D" uid="uid://bcicxp48no5a2" path="res://wall/wall.png" id="2_1w5xe"]
+[ext_resource type="PackedScene" uid="uid://cd0wkkmk0h4of" path="res://player/player_display.tscn" id="3_8s4k5"]
+
+[node name="Wall" type="Node2D" unique_id=980710243]
+script = ExtResource("1_1w5xe")
+metadata/_custom_type_script = "uid://cukneud56fc1"
+
+[node name="WallSprite" type="Sprite2D" parent="." unique_id=1715877714]
+texture = ExtResource("2_1w5xe")
+
+[node name="CorrectDisplay" parent="WallSprite" unique_id=699561014 instance=ExtResource("3_8s4k5")]
+offset_left = -49.0
+offset_top = 32.0
+offset_right = 47.0
+offset_bottom = 64.0
+
+[node name="Line2D" type="Line2D" parent="." unique_id=264821457]
+points = PackedVector2Array(0, 0, -258, 61)
+default_color = Color(1, 1, 1, 0)

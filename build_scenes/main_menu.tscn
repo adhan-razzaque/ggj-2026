@@ -1,37 +1,72 @@
 [gd_scene format=3 uid="uid://c2amqg31700nl"]
 
-[ext_resource type="Texture2D" uid="uid://c2tos1omse0cv" path="res://icon.svg" id="1_0ettg"]
+[ext_resource type="Script" uid="uid://d22c571bo1lnr" path="res://main_menu/main_menu.gd" id="1_ad7ie"]
+[ext_resource type="Texture2D" uid="uid://c1rg8ef2plspr" path="res://level/background.png" id="2_hxx3s"]
+[ext_resource type="Texture2D" uid="uid://cywybh8q2jsxd" path="res://player/player_sprite_up.png" id="3_hxx3s"]
 
-[node name="MainMenu" type="MarginContainer" unique_id=289470858]
+[node name="MainMenu" type="Control" unique_id=870297261 node_paths=PackedStringArray("start_button", "credits_button", "exit_button")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1_ad7ie")
+start_button = NodePath("MarginContainer/VBoxContainer/MenuOptions/Start")
+credits_button = NodePath("MarginContainer/VBoxContainer/MenuOptions/Credits")
+exit_button = NodePath("MarginContainer/VBoxContainer/MenuOptions/Exit")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=1213195679]
+[node name="TextureRect" type="TextureRect" parent="." unique_id=320687187]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_hxx3s")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=178089656]
+layout_mode = 0
+offset_left = 25.0
+offset_top = 25.0
+offset_right = 615.0
+offset_bottom = 367.0
+theme_override_constants/margin_left = 25
+theme_override_constants/margin_top = 25
+theme_override_constants/margin_right = 25
+theme_override_constants/margin_bottom = 25
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=715570927]
 layout_mode = 2
+size_flags_horizontal = 3
 
-[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer" unique_id=715570927]
+[node name="Logo" type="TextureRect" parent="MarginContainer/VBoxContainer" unique_id=377845030]
+custom_minimum_size = Vector2(0, 160)
 layout_mode = 2
+texture = ExtResource("3_hxx3s")
+stretch_mode = 5
 
-[node name="Logo" type="TextureRect" parent="HBoxContainer/VBoxContainer" unique_id=377845030]
+[node name="Title" type="Label" parent="MarginContainer/VBoxContainer" unique_id=591123614]
 layout_mode = 2
-texture = ExtResource("1_0ettg")
+text = "Flag Dance"
+horizontal_alignment = 1
 
-[node name="MenuOptions" type="VBoxContainer" parent="HBoxContainer/VBoxContainer" unique_id=58970344]
+[node name="MenuOptions" type="VBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=58970344]
+custom_minimum_size = Vector2(120, 0)
 layout_mode = 2
+size_flags_horizontal = 4
+alignment = 1
 
-[node name="Start" type="Button" parent="HBoxContainer/VBoxContainer/MenuOptions" unique_id=2089001931]
+[node name="Start" type="Button" parent="MarginContainer/VBoxContainer/MenuOptions" unique_id=2089001931]
 layout_mode = 2
 text = "Start"
 
-[node name="Credits" type="Button" parent="HBoxContainer/VBoxContainer/MenuOptions" unique_id=678455217]
+[node name="Credits" type="Button" parent="MarginContainer/VBoxContainer/MenuOptions" unique_id=678455217]
 layout_mode = 2
 text = "Credits"
 
-[node name="Exit" type="Button" parent="HBoxContainer/VBoxContainer/MenuOptions" unique_id=1292567780]
+[node name="Exit" type="Button" parent="MarginContainer/VBoxContainer/MenuOptions" unique_id=1292567780]
 layout_mode = 2
 text = "Exit"
-
-[node name="CenterContainer" type="CenterContainer" parent="HBoxContainer" unique_id=292496661]
-layout_mode = 2
-
-[node name="TextureRect" type="TextureRect" parent="HBoxContainer/CenterContainer" unique_id=1642636104]
-layout_mode = 2
-texture = ExtResource("1_0ettg")

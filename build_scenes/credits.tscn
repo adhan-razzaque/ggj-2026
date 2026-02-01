@@ -1,0 +1,92 @@
+[gd_scene format=3 uid="uid://bfgpdup8fs2yy"]
+
+[ext_resource type="Theme" uid="uid://d1qv2kubn6bsx" path="res://credits/credits_theme.tres" id="1_iibgj"]
+[ext_resource type="Script" uid="uid://kohg63iymqi6" path="res://credits/credits.gd" id="1_r07n1"]
+
+[node name="Credits" type="Control" unique_id=770103363]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1_r07n1")
+main_menu = "res://build_scenes/main_menu.tscn"
+
+[node name="BackgroundColorRect" type="ColorRect" parent="." unique_id=1432292238]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.67274, 0.3237428, 0.2817885, 1)
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=44268452]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_iibgj")
+theme_override_constants/margin_left = 25
+theme_override_constants/margin_top = 25
+theme_override_constants/margin_right = 25
+theme_override_constants/margin_bottom = 25
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=1429374747]
+layout_mode = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="MarginContainer/VBoxContainer" unique_id=806998168]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/PanelContainer" unique_id=824875647]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="MarginContainer/VBoxContainer/PanelContainer/VBoxContainer" unique_id=988236186]
+layout_mode = 2
+text = "Credits"
+horizontal_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="MarginContainer/VBoxContainer/PanelContainer/VBoxContainer" unique_id=2005598201]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer/PanelContainer/VBoxContainer" unique_id=1990480395]
+layout_mode = 2
+theme = ExtResource("1_iibgj")
+theme_override_constants/margin_left = 25
+theme_override_constants/margin_top = 25
+theme_override_constants/margin_right = 25
+theme_override_constants/margin_bottom = 25
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/PanelContainer/VBoxContainer/MarginContainer" unique_id=1058171064]
+layout_mode = 2
+
+[node name="CreditsNames" type="Label" parent="MarginContainer/VBoxContainer/PanelContainer/VBoxContainer/MarginContainer/HBoxContainer" unique_id=409256325]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource("1_iibgj")
+text = "Adhan Razzaque
+Noah Kuhn"
+
+[node name="CreditsActivities" type="Label" parent="MarginContainer/VBoxContainer/PanelContainer/VBoxContainer/MarginContainer/HBoxContainer" unique_id=1648794676]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource("1_iibgj")
+text = "Programming/Art/Design
+Music"
+horizontal_alignment = 2
+
+[node name="BackButton" type="Button" parent="MarginContainer/VBoxContainer" unique_id=389395978]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 4
+text = "Back"
+
+[connection signal="pressed" from="MarginContainer/VBoxContainer/BackButton" to="." method="_on_back_button_pressed"]
