@@ -2,7 +2,6 @@
 	"disabled_build_options": {
 		"d3d12": false,
 		"disable_3d": true,
-		"disable_navigation_2d": true,
 		"disable_navigation_3d": true,
 		"disable_physics_2d": true,
 		"disable_physics_3d": true,
@@ -15,8 +14,6 @@
 		"module_jolt_physics_enabled": false,
 		"module_msdfgen_enabled": false,
 		"module_openxr_enabled": false,
-		"module_text_server_adv_enabled": false,
-		"module_text_server_fb_enabled": true,
 		"rendering_device": false,
 		"vulkan": false
 	},
