@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://dckd2y6i0iely" path="res://round/round.tscn" id="4_tlipp"]
 [ext_resource type="PackedScene" uid="uid://cd0wkkmk0h4of" path="res://player/player_display.tscn" id="6_qotdi"]
 [ext_resource type="Texture2D" uid="uid://c1rg8ef2plspr" path="res://level/background.png" id="6_ug7r8"]
-[ext_resource type="PackedScene" uid="uid://cmr4qvdyhishr" path="res://round/round_xor.tscn" id="7_f7ku6"]
+[ext_resource type="PackedScene" uid="uid://cmr4qvdyhishr" path="res://round/round_all.tscn" id="7_f7ku6"]
 
 [sub_resource type="ButtonGroup" id="ButtonGroup_qotdi"]
 

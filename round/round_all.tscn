@@ -1,31 +1,30 @@
-[gd_scene format=3 uid="uid://be70a8pev6r2a"]
+[gd_scene format=3 uid="uid://cmr4qvdyhishr"]
 
 [ext_resource type="Script" uid="uid://4sug6kw4f6hp" path="res://round/round.gd" id="1_ukqyr"]
 [ext_resource type="Script" uid="uid://6ggkcgl3gk5m" path="res://round/flag_holders.gd" id="2_cqpbt"]
 
-[node name="RoundXOR" type="Node" unique_id=199965638 node_paths=PackedStringArray("correct_answer", "start_point", "answer_choice")]
+[node name="RoundALL" type="Node" unique_id=199965638 node_paths=PackedStringArray("correct_answer", "start_point", "answer_choice")]
 script = ExtResource("1_ukqyr")
 correct_answer = NodePath("CorrectAnswer")
 start_point = NodePath("StartPoint")
 answer_choice = NodePath("AnswerChoice")
-operators = Array[int]([2])
+operators = Array[int]([0, 1, 2])
 wall_movement_rate = 0.25
 metadata/_custom_type_script = "uid://4sug6kw4f6hp"
 
 [node name="CorrectAnswer" type="Node" parent="." unique_id=466124630]
 script = ExtResource("2_cqpbt")
-flags = 10
 width = 4
 metadata/_custom_type_script = "uid://6ggkcgl3gk5m"
 
 [node name="StartPoint" type="Node" parent="." unique_id=1180382835]
 script = ExtResource("2_cqpbt")
-flags = 5
+flags = 15
 width = 4
 metadata/_custom_type_script = "uid://6ggkcgl3gk5m"
 
 [node name="AnswerChoice" type="Node" parent="." unique_id=834213835]
 script = ExtResource("2_cqpbt")
-flags = 15
+flags = 3
 width = 4
 metadata/_custom_type_script = "uid://6ggkcgl3gk5m"

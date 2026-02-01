@@ -2,8 +2,20 @@
 
 [ext_resource type="PackedScene" uid="uid://b1pjx3qk33gmt" path="res://level/level_base.tscn" id="1_omx5w"]
 [ext_resource type="AudioStream" uid="uid://nor527471x2u" path="res://level/tutorial_v2_loopable.wav" id="2_lx8gb"]
+[ext_resource type="PackedScene" uid="uid://cojgtohx8mfu0" path="res://round/round_or.tscn" id="3_l1g64"]
+[ext_resource type="PackedScene" uid="uid://q8xmasvrxcuc" path="res://round/round_and.tscn" id="4_vb5hv"]
+[ext_resource type="PackedScene" uid="uid://be70a8pev6r2a" path="res://round/round_xor.tscn" id="5_vndax"]
+[ext_resource type="PackedScene" uid="uid://cmr4qvdyhishr" path="res://round/round_all.tscn" id="6_k4ctk"]
 
 [node name="Level1" unique_id=1262444287 instance=ExtResource("1_omx5w")]
 
 [node name="AudioStreamPlayer" parent="." index="1" unique_id=1366348460]
 stream = ExtResource("2_lx8gb")
+
+[node name="RoundOR" parent="." index="2" unique_id=199965638 instance=ExtResource("3_l1g64")]
+
+[node name="RoundAND" parent="." index="3" unique_id=1740588802 instance=ExtResource("4_vb5hv")]
+
+[node name="RoundXOR" parent="." index="4" unique_id=1987739957 instance=ExtResource("5_vndax")]
+
+[node name="RoundALL" parent="." index="5" unique_id=198157431 instance=ExtResource("6_k4ctk")]

@@ -1,0 +1,30 @@
+[gd_scene format=3 uid="uid://cojgtohx8mfu0"]
+
+[ext_resource type="Script" uid="uid://4sug6kw4f6hp" path="res://round/round.gd" id="1_jabm7"]
+[ext_resource type="Script" uid="uid://6ggkcgl3gk5m" path="res://round/flag_holders.gd" id="2_xd8nc"]
+
+[node name="RoundOR" type="Node" unique_id=199965638 node_paths=PackedStringArray("correct_answer", "start_point", "answer_choice")]
+script = ExtResource("1_jabm7")
+correct_answer = NodePath("CorrectAnswer")
+start_point = NodePath("StartPoint")
+answer_choice = NodePath("AnswerChoice")
+operators = Array[int]([0])
+wall_movement_rate = 0.25
+metadata/_custom_type_script = "uid://4sug6kw4f6hp"
+
+[node name="CorrectAnswer" type="Node" parent="." unique_id=466124630]
+script = ExtResource("2_xd8nc")
+flags = 1
+width = 1
+metadata/_custom_type_script = "uid://6ggkcgl3gk5m"
+
+[node name="StartPoint" type="Node" parent="." unique_id=1180382835]
+script = ExtResource("2_xd8nc")
+width = 1
+metadata/_custom_type_script = "uid://6ggkcgl3gk5m"
+
+[node name="AnswerChoice" type="Node" parent="." unique_id=834213835]
+script = ExtResource("2_xd8nc")
+flags = 1
+width = 1
+metadata/_custom_type_script = "uid://6ggkcgl3gk5m"

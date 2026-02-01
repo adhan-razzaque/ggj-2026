@@ -139,6 +139,7 @@ func on_tick() -> void:
 func reset_answer() -> void:
 	current_flags.flags = start_point.flags
 	current_flags.width = start_point.width
+	player_state_changed.emit(current_flags)
 	
 ## Submits answer choice at index with provided operator
 func submit_answer(operator: Operators) -> void:

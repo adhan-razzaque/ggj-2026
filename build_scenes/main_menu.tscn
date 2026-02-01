@@ -14,6 +14,7 @@ grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource("1_ad7ie")
+first_level_path = "res://build_scenes/level_ui_tutorial.tscn"
 credits_path = "res://build_scenes/credits.tscn"
 controls_path = "res://build_scenes/controls.tscn"
 start_button = NodePath("MarginContainer/VBoxContainer/MenuOptions/Start")

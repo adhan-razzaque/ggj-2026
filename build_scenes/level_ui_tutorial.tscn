@@ -5,12 +5,14 @@
 [ext_resource type="PackedScene" uid="uid://cd0wkkmk0h4of" path="res://player/player_display.tscn" id="3_e3yd4"]
 [ext_resource type="Script" uid="uid://jjcwacdl1ybs" path="res://level/controls_ui.gd" id="4_lipga"]
 [ext_resource type="PackedScene" uid="uid://b1pjx3qk33gmt" path="res://level/level_base.tscn" id="5_34cew"]
-[ext_resource type="PackedScene" uid="uid://dckd2y6i0iely" path="res://round/round.tscn" id="6_n38u2"]
-[ext_resource type="PackedScene" uid="uid://cmr4qvdyhishr" path="res://round/round_xor.tscn" id="7_22e4f"]
+[ext_resource type="PackedScene" uid="uid://cojgtohx8mfu0" path="res://round/round_or.tscn" id="6_l0f85"]
+[ext_resource type="PackedScene" uid="uid://be70a8pev6r2a" path="res://round/round_xor.tscn" id="7_22e4f"]
+[ext_resource type="PackedScene" uid="uid://q8xmasvrxcuc" path="res://round/round_and.tscn" id="7_i2ack"]
+[ext_resource type="PackedScene" uid="uid://cmr4qvdyhishr" path="res://round/round_all.tscn" id="9_4u80h"]
 
 [sub_resource type="ButtonGroup" id="ButtonGroup_qotdi"]
 
-[node name="LevelUiBase" type="Node2D" unique_id=566148448]
+[node name="LevelUiTutorial" type="Node2D" unique_id=566148448]
 
 [node name="BackgroundSprite" type="Sprite2D" parent="." unique_id=271031812]
 position = Vector2(320, 180)
@@ -76,11 +78,15 @@ size_flags_horizontal = 4
 text = "Reset"
 
 [node name="LevelBase" parent="." unique_id=1262444287 instance=ExtResource("5_34cew")]
+next_scene_path = "uid://cgbr1huihlu8j"
 
-[node name="Round" parent="LevelBase" unique_id=199965638 instance=ExtResource("6_n38u2")]
-operators = Array[int]([0, 1, 2])
+[node name="RoundOR" parent="LevelBase" unique_id=199965638 instance=ExtResource("6_l0f85")]
 
-[node name="Round2" parent="LevelBase" unique_id=1632339308 instance=ExtResource("7_22e4f")]
+[node name="RoundAND" parent="LevelBase" unique_id=2112338229 instance=ExtResource("7_i2ack")]
+
+[node name="RoundXOR" parent="LevelBase" unique_id=2117531176 instance=ExtResource("7_22e4f")]
+
+[node name="RoundALL" parent="LevelBase" unique_id=822137760 instance=ExtResource("9_4u80h")]
 
 [connection signal="new_answer_selected" from="LevelBase" to="Wall/WallSprite/CorrectDisplay" method="build_player_texture"]
 [connection signal="new_choice_selected" from="LevelBase" to="ControlsUIContainer/VBoxContainer/ChoiceDisplay" method="build_player_texture"]
