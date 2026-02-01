@@ -7,7 +7,7 @@ signal new_player_selected(new_player: FlagHolders)
 signal new_answer_selected(new_answer: FlagHolders)
 signal new_choice_selected(new_choice: FlagHolders)
 signal level_complete()
-signal level_lost()
+signal level_lost(score: int)
 signal level_lives_changed(lives_left: int)
 
 # Properties
@@ -22,6 +22,7 @@ signal level_lives_changed(lives_left: int)
 var success_phrases: Array[String] = []
 var rounds: Array[Round] = []
 var current_round_index: int = -1
+var score: int = 0
 @onready var timer: Timer = $Timer as Timer
 @onready var audio_player: AudioStreamPlayer = $AudioStreamPlayer
 
@@ -77,7 +78,6 @@ func next_round() -> void:
 	
 	start_round()
 	
-	
 func start_round() -> void:
 	current_round.round_over.connect(_on_round_over)
 	current_round.player_state_changed.connect(_on_player_state_changed)
@@ -115,6 +115,7 @@ func _on_round_over(won: bool) -> void:
 		var success_string: String = success_phrases.pick_random()
 		success_phrase.emit(success_string)
 		audio_player.stop()
+		score += 1
 		next_round()
 		return
 	
@@ -123,7 +124,7 @@ func _on_round_over(won: bool) -> void:
 		level_lives_changed.emit(lives)
 	
 	if lives == 0:
-		level_lost.emit()
+		level_lost.emit(score)
 		return
 	
 	print_debug("You lost, try again...")

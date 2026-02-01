@@ -8,6 +8,8 @@ class_name PlayerDisplay extends Container
 
 @onready var hbox_container: HBoxContainer = $HBoxContainer
 
+@export var set_black: bool = false
+
 func build_player_texture(from_flags: FlagHolders) -> void:
 	print_debug("Building texture")
 	var children := hbox_container.get_children()
@@ -27,6 +29,8 @@ func build_player_texture(from_flags: FlagHolders) -> void:
 		new_texture.texture = sprite_from_value(this_value, width == 1)
 		new_texture.expand_mode = TextureRect.EXPAND_FIT_WIDTH_PROPORTIONAL
 		new_texture.stretch_mode = TextureRect.STRETCH_SCALE
+		if set_black:
+			new_texture.modulate = Color.BLACK
 		width -= 2
 		texture_rects.push_front(new_texture)
 		

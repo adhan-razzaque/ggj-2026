@@ -40,12 +40,19 @@ enum Operators {
 @export var is_ordered: bool
 
 ## The rate at which the wall moves with the tick rate; does not move at 0
-@export_range(0, 4, 0.25, "suffix:steps") var wall_movement_rate: float = 0.
+@export_range(0, 1, 0.01, "suffix:steps") var wall_movement_rate: float = 0.
 
 ## That limit wall can reach before game is over
 @export var wall_limit: int = 10
 
 @export var wall_move_delay: float = 3.0
+
+@export_category("Endless Mode")
+
+@export var min_iterations: int = 2
+@export var max_target_iterations: int = 5
+@export_range(0, 1, 0.01, "suffix:steps") var max_wall_rate: float = 1.0
+@export var wall_rate_increase_step: float = 0.1
 
 # Variables
 
@@ -115,11 +122,12 @@ func on_tick() -> void:
 	wall_moved.emit(wall_position)
 	wall_tick -= wall_movement
 	
-	var lost_round: bool = !(wall_position < wall_limit)
-	if (!lost_round):
+	var wall_at_end: bool = !(wall_position < wall_limit)
+	if (!wall_at_end):
 		return
 		
-	end_game(false)
+	var won_round: bool = current_flags.flags == correct_answer.flags
+	end_game(won_round)
 	
 ## Resets stored answer to the start point
 func reset_answer() -> void:
@@ -132,24 +140,44 @@ func submit_answer(operator: Operators) -> void:
 		print_debug("Operator %s was not in the list of choices" % Operators.find_key(operator))
 		return
 		
-	match operator:
-		Operators.OR:
-			current_flags.flags |= answer_choice.flags
-		Operators.AND:
-			current_flags.flags &= answer_choice.flags
-		Operators.XOR:
-			current_flags.flags ^= answer_choice.flags
-		_:
-			print_debug("Invalid operator provided")
-			return
+	print_debug(current_flags.flags)
+	current_flags.flags = apply_operator(operator, current_flags.flags, answer_choice.flags)
+	print_debug(current_flags.flags)
 			
 	player_state_changed.emit(current_flags)
-			
-	var won_round: bool = current_flags.flags == correct_answer.flags
-	if (!won_round):
-		return
 	
-	end_game(won_round)
+	
+func apply_operator(operator: Operators, lhs: int, rhs: int) -> int:
+	match operator:
+		Operators.OR:
+			return lhs | rhs
+		Operators.AND:
+			return lhs & rhs
+		Operators.XOR:
+			return lhs ^ rhs
+		_:
+			print_debug("Invalid operator provided")
+	push_error("Invalid operator provided")
+	return 0
+	
+func increase_wall_rate() -> void:
+	wall_movement_rate += wall_rate_increase_step
+	wall_movement_rate = min(wall_movement_rate, max_wall_rate)
 	
 func randomize_round() -> void:
-	pass
+	start_point.randomize_flags()
+	answer_choice.randomize_flags()
+	
+	var iterations: int = randi_range(min_iterations, max_target_iterations)
+	var result: int = start_point.flags
+	for x in range(iterations):
+		var random_operator: Operators = operators.pick_random()
+		result = apply_operator(random_operator, result, answer_choice.flags)
+		
+	# few more iterations if we land at the same value
+	while result == start_point.flags:
+		var random_operator: Operators = operators.pick_random()
+		result = apply_operator(random_operator, result, answer_choice.flags)
+		
+	correct_answer.flags = result
+	

@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://dckd2y6i0iely" path="res://round/round.tscn" id="4_tlipp"]
 [ext_resource type="PackedScene" uid="uid://cd0wkkmk0h4of" path="res://player/player_display.tscn" id="6_qotdi"]
 [ext_resource type="Texture2D" uid="uid://c1rg8ef2plspr" path="res://level/background.png" id="6_ug7r8"]
+[ext_resource type="Texture2D" uid="uid://cmxonrh1sd7cp" path="res://player/heart.png" id="7_ug7r8"]
 
 [sub_resource type="ButtonGroup" id="ButtonGroup_qotdi"]
 
@@ -18,14 +19,17 @@ texture = ExtResource("6_ug7r8")
 [node name="Wall" parent="." unique_id=980710243 instance=ExtResource("1_tlipp")]
 position = Vector2(420, 177)
 
+[node name="CorrectDisplay" parent="Wall/WallSprite" parent_id_path=PackedInt32Array(980710243, 1715877714) index="0" unique_id=699561014]
+set_black = true
+
 [node name="Line2D" parent="Wall" index="1" unique_id=264821457]
 points = PackedVector2Array(0, 0, -254, 70)
 
 [node name="PlayerDisplay" parent="." unique_id=786894169 instance=ExtResource("6_qotdi")]
-offset_left = 30.0
-offset_top = 276.0
-offset_right = 299.0
-offset_bottom = 308.0
+offset_left = 31.0
+offset_top = 279.0
+offset_right = 300.0
+offset_bottom = 311.0
 
 [node name="ControlsUIContainer" type="MarginContainer" parent="." unique_id=505083090 node_paths=PackedStringArray("operator_container", "choice_container", "submit_button", "reset_button")]
 offset_left = 485.0
@@ -75,6 +79,20 @@ text = "Reset"
 
 [node name="Round" parent="LevelBase" unique_id=199965638 instance=ExtResource("4_tlipp")]
 operators = Array[int]([0, 1, 2])
+
+[node name="Hearts" type="Node2D" parent="." unique_id=1142628102]
+position = Vector2(571, 30)
+
+[node name="Heart1" type="Sprite2D" parent="Hearts" unique_id=657841490]
+texture = ExtResource("7_ug7r8")
+
+[node name="Heart2" type="Sprite2D" parent="Hearts" unique_id=255694208]
+position = Vector2(40, 0)
+texture = ExtResource("7_ug7r8")
+
+[node name="Heart3" type="Sprite2D" parent="Hearts" unique_id=608624769]
+position = Vector2(-40, 0)
+texture = ExtResource("7_ug7r8")
 
 [connection signal="new_answer_selected" from="LevelBase" to="Wall/WallSprite/CorrectDisplay" method="build_player_texture"]
 [connection signal="new_choice_selected" from="LevelBase" to="ControlsUIContainer/VBoxContainer/ChoiceDisplay" method="build_player_texture"]
