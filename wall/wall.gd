@@ -16,11 +16,10 @@ func on_wall_moved(new_position: int) -> void:
 	distance *= float(new_position) / line_splits
 	wall_sprite.position = start + distance
 	
-func on_round_begun(new_round: Round) -> void:
+func _on_round_begun(new_round: Round) -> void:
 	if current_round != null:
 		current_round.wall_moved.disconnect(on_wall_moved)
 		
 	current_round = new_round
 	line_splits = current_round.wall_limit
 	current_round.wall_moved.connect(on_wall_moved)
-	

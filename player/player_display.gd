@@ -8,23 +8,8 @@ class_name PlayerDisplay extends Container
 
 @onready var hbox_container: HBoxContainer = $HBoxContainer
 
-var _flags: FlagHolders
-var flags: FlagHolders:
-	get:
-		return _flags
-	set(value):
-		_flags = value
-		build_player_texture(value)
-
-
-func _ready() -> void:
-	var test = FlagHolders.new()
-	test.width = 4
-	test.flags = 3
-	flags = test
-
-
 func build_player_texture(from_flags: FlagHolders) -> void:
+	print_debug("Building texture")
 	var children := hbox_container.get_children()
 	
 	for child in children:
@@ -40,7 +25,8 @@ func build_player_texture(from_flags: FlagHolders) -> void:
 		var this_value: int = value & 0b11
 		value >>= 2
 		new_texture.texture = sprite_from_value(this_value, width == 1)
-		new_texture.size = Vector2(32, 32)
+		new_texture.expand_mode = TextureRect.EXPAND_FIT_WIDTH_PROPORTIONAL
+		new_texture.stretch_mode = TextureRect.STRETCH_SCALE
 		width -= 2
 		texture_rects.push_front(new_texture)
 		

@@ -3,6 +3,9 @@ class_name Level extends Node
 # Signals
 signal success_phrase(phrase: String)
 signal round_begun(new_round: Round)
+signal new_player_selected(new_player: FlagHolders)
+signal new_answer_selected(new_answer: FlagHolders)
+signal new_choice_selected(new_choice: FlagHolders)
 
 # Properties
 @export_file("*.txt") var success_phrases_path: String
@@ -24,6 +27,9 @@ var current_round: Round:
 func _ready() -> void:
 	load_success_phrases()
 	load_rounds()
+	
+	var start_timer = get_tree().create_timer(3.0)
+	start_timer.timeout.connect(next_round)
 
 ## Load the success phrases from the provided text file
 func load_success_phrases() -> void:
@@ -65,9 +71,13 @@ func next_round() -> void:
 	
 func start_round() -> void:
 	current_round.round_over.connect(_on_round_over)
+	current_round.player_state_changed.connect(_on_player_state_changed)
 	current_round.start_game()
 	timer.start()
 	round_begun.emit(current_round)
+	new_player_selected.emit(current_round.current_flags)
+	new_answer_selected.emit(current_round.correct_answer)
+	new_choice_selected.emit(current_round.answer_choice)
 		
 ## End Level
 func end_level() -> void:
@@ -83,6 +93,7 @@ func _on_timer_timeout() -> void:
 func _on_round_over(won: bool) -> void:
 	timer.stop()
 	current_round.round_over.disconnect(_on_round_over)
+	current_round.player_state_changed.disconnect(_on_player_state_changed)
 	
 	if won:
 		print_debug("You won, moving to next round...")
@@ -92,3 +103,6 @@ func _on_round_over(won: bool) -> void:
 	else:
 		print_debug("You lost, try again...")
 		start_round()
+		
+func _on_player_state_changed(new_state: FlagHolders) -> void:
+	new_player_selected.emit(new_state)

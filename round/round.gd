@@ -8,6 +8,9 @@ signal round_over(won: bool)
 ## Signals that wall has moved, new_position is the position it is now at
 signal wall_moved(new_position: int)
 
+## Signals that current flags changed
+signal player_state_changed(new_state: FlagHolders)
+
 # Enums
 ## The operators that can be used within a round
 enum Operators {
@@ -28,7 +31,7 @@ enum Operators {
 @export var start_point: FlagHolders
 
 ## The answer choices to provide
-@export var answer_choices: Array[FlagHolders]
+@export var answer_choice: FlagHolders
 
 ## The operators available for use this round; duplicates ignored if ordered is not checked
 @export var operators: Array[Operators]
@@ -113,26 +116,23 @@ func reset_answer() -> void:
 	current_flags.width = start_point.width
 	
 ## Submits answer choice at index with provided operator
-func submit_answer(choice_index: int, operator: Operators) -> void:
+func submit_answer(operator: Operators) -> void:
 	if (operator not in operators):
 		print_debug("Operator %s was not in the list of choices" % Operators.find_key(operator))
 		return
-	
-	if (choice_index < 0 or choice_index >= answer_choices.size()):
-		print_debug("Choice index %i is out of range" % choice_index)
-		
-	var choice: FlagHolders = answer_choices[choice_index]
 		
 	match operator:
 		Operators.OR:
-			current_flags.flags |= choice.flags
+			current_flags.flags |= answer_choice.flags
 		Operators.AND:
-			current_flags.flags &= choice.flags
+			current_flags.flags &= answer_choice.flags
 		Operators.XOR:
-			current_flags.flags ^= choice.flags
+			current_flags.flags ^= answer_choice.flags
 		_:
 			print_debug("Invalid operator provided")
 			return
+			
+	player_state_changed.emit(current_flags)
 			
 	var won_round: bool = current_flags.flags == correct_answer.flags
 	if (!won_round):
