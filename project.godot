@@ -11,9 +11,11 @@ config_version=5
 [application]
 
 config/name="Global Game Jam 2026"
+config/description="My submission for Global Game Jam 2026, Flag Jams"
 run/main_scene="uid://c2amqg31700nl"
 config/features=PackedStringArray("4.6", "GL Compatibility")
-config/icon="res://icon.svg"
+boot_splash/image="uid://c1rg8ef2plspr"
+config/icon="uid://cvjvu0stgq44b"
 
 [display]
 
@@ -32,3 +34,4 @@ textures/canvas_textures/default_texture_filter=0
 rendering_device/driver.windows="d3d12"
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
+textures/vram_compression/import_etc2_astc=true
