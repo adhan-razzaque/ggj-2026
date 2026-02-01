@@ -1,0 +1,84 @@
+[gd_scene format=3 uid="uid://dg0xd8qls8q5a"]
+
+[ext_resource type="Script" uid="uid://cukneud56fc1" path="res://wall/wall.gd" id="1_qmiyr"]
+[ext_resource type="Texture2D" uid="uid://c2tos1omse0cv" path="res://icon.svg" id="2_7ak56"]
+[ext_resource type="PackedScene" uid="uid://b1pjx3qk33gmt" path="res://level/level_base.tscn" id="3_w6fek"]
+[ext_resource type="Script" uid="uid://jjcwacdl1ybs" path="res://level/controls_ui.gd" id="4_fm06m"]
+[ext_resource type="PackedScene" uid="uid://dckd2y6i0iely" path="res://round/round.tscn" id="4_tlipp"]
+[ext_resource type="Script" uid="uid://63s4hmce36lx" path="res://player/player_display.gd" id="6_qotdi"]
+[ext_resource type="Texture2D" uid="uid://bok4m6gnv6s36" path="res://player/player_sprite_0.png" id="7_kbij0"]
+[ext_resource type="Texture2D" uid="uid://b0npvvskpnrua" path="res://player/player_sprite_1.png" id="8_c4h3n"]
+[ext_resource type="Texture2D" uid="uid://bvwacvg8susa2" path="res://player/player_sprite_00.png" id="9_gqaqr"]
+[ext_resource type="Texture2D" uid="uid://bu3c6o5viltqp" path="res://player/player_sprite_01.png" id="10_48xp5"]
+[ext_resource type="Texture2D" uid="uid://dcpbn6uvbfdjv" path="res://player/player_sprite_10.png" id="11_d7tey"]
+[ext_resource type="Texture2D" uid="uid://b7w07tbbvm321" path="res://player/player_sprite_11.png" id="12_5wgwr"]
+
+[node name="LevelUiBase" type="Node2D" unique_id=566148448]
+
+[node name="Wall" type="Node2D" parent="." unique_id=963792758]
+position = Vector2(349, 86)
+script = ExtResource("1_qmiyr")
+metadata/_custom_type_script = "uid://cukneud56fc1"
+
+[node name="WallSprite" type="Sprite2D" parent="Wall" unique_id=492248415]
+texture = ExtResource("2_7ak56")
+
+[node name="Line2D" type="Line2D" parent="Wall" unique_id=1791392133]
+points = PackedVector2Array(0, 0, -197, 207)
+width = 0.0
+default_color = Color(0, 0, 0, 0)
+
+[node name="LevelBase" parent="." unique_id=1262444287 instance=ExtResource("3_w6fek")]
+
+[node name="Round" parent="LevelBase" unique_id=199965638 instance=ExtResource("4_tlipp")]
+
+[node name="MarginContainer" type="Control" parent="." unique_id=1456249942]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 640.0
+offset_bottom = 360.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ControlsUIContainer" type="MarginContainer" parent="MarginContainer" unique_id=505083090 node_paths=PackedStringArray("operator_container", "choice_container", "submit_button")]
+layout_mode = 0
+offset_left = 303.0
+offset_top = 168.0
+offset_right = 640.0
+offset_bottom = 360.0
+script = ExtResource("4_fm06m")
+operator_container = NodePath("VBoxContainer/OperatorContainer")
+choice_container = NodePath("VBoxContainer/ChoiceContainer")
+submit_button = NodePath("VBoxContainer/CenterContainer/SubmitButton")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/ControlsUIContainer" unique_id=949823908]
+layout_mode = 2
+
+[node name="OperatorContainer" type="HBoxContainer" parent="MarginContainer/ControlsUIContainer/VBoxContainer" unique_id=1011830265]
+layout_mode = 2
+
+[node name="ChoiceContainer" type="HBoxContainer" parent="MarginContainer/ControlsUIContainer/VBoxContainer" unique_id=1871790874]
+layout_mode = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="MarginContainer/ControlsUIContainer/VBoxContainer" unique_id=1965484257]
+layout_mode = 2
+
+[node name="SubmitButton" type="Button" parent="MarginContainer/ControlsUIContainer/VBoxContainer/CenterContainer" unique_id=1956454843]
+layout_mode = 2
+text = "Submit"
+
+[node name="PlayerDisplay" type="MarginContainer" parent="MarginContainer" unique_id=304848319]
+layout_mode = 0
+offset_left = 43.0
+offset_top = 245.0
+offset_right = 312.0
+offset_bottom = 309.0
+script = ExtResource("6_qotdi")
+sprites_1bit = Array[CompressedTexture2D]([ExtResource("7_kbij0"), ExtResource("8_c4h3n")])
+sprites_2bit = Array[CompressedTexture2D]([ExtResource("9_gqaqr"), ExtResource("10_48xp5"), ExtResource("11_d7tey"), ExtResource("12_5wgwr")])
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/PlayerDisplay" unique_id=824058402]
+layout_mode = 2
+alignment = 1

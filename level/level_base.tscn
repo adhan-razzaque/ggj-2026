@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://b1pjx3qk33gmt"]
+
+[ext_resource type="Script" uid="uid://b4js5bbt3to4c" path="res://level/level.gd" id="1_p5upd"]
+
+[node name="LevelBase" type="Node" unique_id=1262444287]
+script = ExtResource("1_p5upd")
+success_phrases_path = "res://level/success_phrases.txt"
+metadata/_custom_type_script = "uid://b4js5bbt3to4c"
+
+[node name="Timer" type="Timer" parent="." unique_id=815341611]
+wait_time = 0.25
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

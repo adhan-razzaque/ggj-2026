@@ -1,5 +1,8 @@
 class_name Level extends Node
 
+# Signals
+signal success_phrase(phrase: String)
+signal round_begun(new_round: Round)
 
 # Properties
 @export_file("*.txt") var success_phrases_path: String
@@ -21,11 +24,6 @@ var current_round: Round:
 func _ready() -> void:
 	load_success_phrases()
 	load_rounds()
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
-
 
 ## Load the success phrases from the provided text file
 func load_success_phrases() -> void:
@@ -69,7 +67,7 @@ func start_round() -> void:
 	current_round.round_over.connect(_on_round_over)
 	current_round.start_game()
 	timer.start()
-	
+	round_begun.emit(current_round)
 		
 ## End Level
 func end_level() -> void:
@@ -88,6 +86,8 @@ func _on_round_over(won: bool) -> void:
 	
 	if won:
 		print_debug("You won, moving to next round...")
+		var success_string: String = success_phrases.pick_random()
+		success_phrase.emit(success_string)
 		next_round()
 	else:
 		print_debug("You lost, try again...")
