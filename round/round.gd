@@ -59,8 +59,15 @@ enum Operators {
 ## Tracks wall movement rate to decide when to move to next step
 var wall_tick: float = 0.
 
+var _wall_position: int = 0
+
 ## Tracks where wall is currently at
-var wall_position: int = 0
+var wall_position: int:
+	get:
+		return _wall_position
+	set(value):
+		wall_moved.emit(value)
+		_wall_position = value
 
 ## Tracks whether round is in progress
 var round_active: bool
@@ -119,7 +126,6 @@ func on_tick() -> void:
 	var wall_movement: int = floori(wall_tick)
 	print_debug("Moving wall by %f" % wall_movement)
 	wall_position += wall_movement
-	wall_moved.emit(wall_position)
 	wall_tick -= wall_movement
 	
 	var wall_at_end: bool = !(wall_position < wall_limit)
@@ -142,8 +148,8 @@ func submit_answer(operator: Operators) -> void:
 		
 	print_debug(current_flags.flags)
 	current_flags.flags = apply_operator(operator, current_flags.flags, answer_choice.flags)
+	current_flags.flags &= current_flags.width_mask
 	print_debug(current_flags.flags)
-			
 	player_state_changed.emit(current_flags)
 	
 	
@@ -173,11 +179,13 @@ func randomize_round() -> void:
 	for x in range(iterations):
 		var random_operator: Operators = operators.pick_random()
 		result = apply_operator(random_operator, result, answer_choice.flags)
+		result &= start_point.width_mask
 		
 	# few more iterations if we land at the same value
 	while result == start_point.flags:
 		var random_operator: Operators = operators.pick_random()
 		result = apply_operator(random_operator, result, answer_choice.flags)
+		result &= start_point.width_mask
 		
 	correct_answer.flags = result
 	

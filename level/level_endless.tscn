@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://x8uv3nbtqqm1"]
+
+[ext_resource type="Script" uid="uid://b4js5bbt3to4c" path="res://level/level.gd" id="1_jj70y"]
+[ext_resource type="AudioStream" uid="uid://7vxmiiwd6ipi" path="res://level/main_v2_loopable.wav" id="2_qu8xe"]
+[ext_resource type="PackedScene" uid="uid://ck08me6m2wn4u" path="res://round/round_endless.tscn" id="3_qu8xe"]
+
+[node name="LevelEndless" type="Node" unique_id=1262444287]
+script = ExtResource("1_jj70y")
+success_phrases_path = "res://level/success_phrases.txt"
+next_scene_path = "uid://1c6rjb7xyoqb"
+endless = true
+metadata/_custom_type_script = "uid://b4js5bbt3to4c"
+
+[node name="Timer" type="Timer" parent="." unique_id=815341611]
+wait_time = 0.25
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=1366348460]
+stream = ExtResource("2_qu8xe")
+
+[node name="RoundEndless" parent="." unique_id=199965638 instance=ExtResource("3_qu8xe")]
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

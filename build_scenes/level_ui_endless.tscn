@@ -1,12 +1,11 @@
-[gd_scene format=3 uid="uid://dg0xd8qls8q5a"]
+[gd_scene format=3 uid="uid://cgbr1huihlu8j"]
 
-[ext_resource type="PackedScene" uid="uid://uyx8jr141fyw" path="res://wall/wall.tscn" id="1_tlipp"]
-[ext_resource type="PackedScene" uid="uid://b1pjx3qk33gmt" path="res://level/level_base.tscn" id="3_w6fek"]
-[ext_resource type="Script" uid="uid://jjcwacdl1ybs" path="res://level/controls_ui.gd" id="4_fm06m"]
-[ext_resource type="PackedScene" uid="uid://dckd2y6i0iely" path="res://round/round.tscn" id="4_tlipp"]
-[ext_resource type="PackedScene" uid="uid://cd0wkkmk0h4of" path="res://player/player_display.tscn" id="6_qotdi"]
-[ext_resource type="Texture2D" uid="uid://c1rg8ef2plspr" path="res://level/background.png" id="6_ug7r8"]
-[ext_resource type="PackedScene" uid="uid://cmr4qvdyhishr" path="res://round/round_xor.tscn" id="7_f7ku6"]
+[ext_resource type="Texture2D" uid="uid://c1rg8ef2plspr" path="res://level/background.png" id="1_uaci1"]
+[ext_resource type="PackedScene" uid="uid://uyx8jr141fyw" path="res://wall/wall.tscn" id="2_faajo"]
+[ext_resource type="PackedScene" uid="uid://cd0wkkmk0h4of" path="res://player/player_display.tscn" id="3_5nngq"]
+[ext_resource type="Script" uid="uid://jjcwacdl1ybs" path="res://level/controls_ui.gd" id="4_qyxny"]
+[ext_resource type="PackedScene" uid="uid://x8uv3nbtqqm1" path="res://level/level_endless.tscn" id="5_faajo"]
+[ext_resource type="PackedScene" uid="uid://csj400wkefg4b" path="res://level/hearts.tscn" id="6_1ctbs"]
 
 [sub_resource type="ButtonGroup" id="ButtonGroup_qotdi"]
 
@@ -14,9 +13,9 @@
 
 [node name="BackgroundSprite" type="Sprite2D" parent="." unique_id=271031812]
 position = Vector2(320, 180)
-texture = ExtResource("6_ug7r8")
+texture = ExtResource("1_uaci1")
 
-[node name="Wall" parent="." unique_id=980710243 instance=ExtResource("1_tlipp")]
+[node name="Wall" parent="." unique_id=980710243 instance=ExtResource("2_faajo")]
 position = Vector2(420, 177)
 
 [node name="CorrectDisplay" parent="Wall/WallSprite" parent_id_path=PackedInt32Array(980710243, 1715877714) index="0" unique_id=699561014]
@@ -25,7 +24,7 @@ set_black = true
 [node name="Line2D" parent="Wall" index="1" unique_id=264821457]
 points = PackedVector2Array(0, 0, -254, 70)
 
-[node name="PlayerDisplay" parent="." unique_id=786894169 instance=ExtResource("6_qotdi")]
+[node name="PlayerDisplay" parent="." unique_id=786894169 instance=ExtResource("3_5nngq")]
 offset_left = 31.0
 offset_top = 279.0
 offset_right = 300.0
@@ -36,7 +35,7 @@ offset_left = 485.0
 offset_top = 85.0
 offset_right = 627.0
 offset_bottom = 360.0
-script = ExtResource("4_fm06m")
+script = ExtResource("4_qyxny")
 operator_container = NodePath("VBoxContainer/OperatorContainer")
 choice_container = NodePath("VBoxContainer/ChoiceContainer")
 submit_button = NodePath("VBoxContainer/SubmitButton")
@@ -46,7 +45,7 @@ operator_button_group = SubResource("ButtonGroup_qotdi")
 [node name="VBoxContainer" type="VBoxContainer" parent="ControlsUIContainer" unique_id=949823908]
 layout_mode = 2
 
-[node name="ChoiceDisplay" parent="ControlsUIContainer/VBoxContainer" unique_id=709871913 instance=ExtResource("6_qotdi")]
+[node name="ChoiceDisplay" parent="ControlsUIContainer/VBoxContainer" unique_id=709871913 instance=ExtResource("3_5nngq")]
 custom_minimum_size = Vector2(0, 64)
 layout_mode = 2
 
@@ -75,17 +74,16 @@ layout_mode = 2
 size_flags_horizontal = 4
 text = "Reset"
 
-[node name="LevelBase" parent="." unique_id=1262444287 instance=ExtResource("3_w6fek")]
+[node name="LevelEndless" parent="." unique_id=1262444287 instance=ExtResource("5_faajo")]
 
-[node name="Round" parent="LevelBase" unique_id=199965638 instance=ExtResource("4_tlipp")]
-operators = Array[int]([0, 1, 2])
+[node name="Hearts" parent="." unique_id=935660065 instance=ExtResource("6_1ctbs")]
+position = Vector2(555, 44)
 
-[node name="Round2" parent="LevelBase" unique_id=1632339308 instance=ExtResource("7_f7ku6")]
-
-[connection signal="new_answer_selected" from="LevelBase" to="Wall/WallSprite/CorrectDisplay" method="build_player_texture"]
-[connection signal="new_choice_selected" from="LevelBase" to="ControlsUIContainer/VBoxContainer/ChoiceDisplay" method="build_player_texture"]
-[connection signal="new_player_selected" from="LevelBase" to="PlayerDisplay" method="build_player_texture"]
-[connection signal="round_begun" from="LevelBase" to="Wall" method="_on_round_begun"]
-[connection signal="round_begun" from="LevelBase" to="ControlsUIContainer" method="on_round_begun"]
+[connection signal="level_lives_changed" from="LevelEndless" to="Hearts" method="_on_lives_changed"]
+[connection signal="new_answer_selected" from="LevelEndless" to="Wall/WallSprite/CorrectDisplay" method="build_player_texture"]
+[connection signal="new_choice_selected" from="LevelEndless" to="ControlsUIContainer/VBoxContainer/ChoiceDisplay" method="build_player_texture"]
+[connection signal="new_player_selected" from="LevelEndless" to="PlayerDisplay" method="build_player_texture"]
+[connection signal="round_begun" from="LevelEndless" to="Wall" method="_on_round_begun"]
+[connection signal="round_begun" from="LevelEndless" to="ControlsUIContainer" method="on_round_begun"]
 
 [editable path="Wall"]

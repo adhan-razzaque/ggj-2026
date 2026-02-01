@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://c1rg8ef2plspr" path="res://level/background.png" id="2_hxx3s"]
 [ext_resource type="Texture2D" uid="uid://cywybh8q2jsxd" path="res://player/player_sprite_up.png" id="3_hxx3s"]
 
-[node name="MainMenu" type="Control" unique_id=870297261 node_paths=PackedStringArray("start_button", "credits_button", "exit_button")]
+[node name="MainMenu" type="Control" unique_id=870297261 node_paths=PackedStringArray("start_button", "controls_button", "credits_button", "exit_button")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -14,7 +14,10 @@ grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource("1_ad7ie")
+credits_path = "res://build_scenes/credits.tscn"
+controls_path = "res://build_scenes/controls.tscn"
 start_button = NodePath("MarginContainer/VBoxContainer/MenuOptions/Start")
+controls_button = NodePath("MarginContainer/VBoxContainer/MenuOptions/Controls")
 credits_button = NodePath("MarginContainer/VBoxContainer/MenuOptions/Credits")
 exit_button = NodePath("MarginContainer/VBoxContainer/MenuOptions/Exit")
 
@@ -44,7 +47,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 
 [node name="Logo" type="TextureRect" parent="MarginContainer/VBoxContainer" unique_id=377845030]
-custom_minimum_size = Vector2(0, 160)
+custom_minimum_size = Vector2(0, 128)
 layout_mode = 2
 texture = ExtResource("3_hxx3s")
 stretch_mode = 5
@@ -63,6 +66,10 @@ alignment = 1
 [node name="Start" type="Button" parent="MarginContainer/VBoxContainer/MenuOptions" unique_id=2089001931]
 layout_mode = 2
 text = "Start"
+
+[node name="Controls" type="Button" parent="MarginContainer/VBoxContainer/MenuOptions" unique_id=1734277230]
+layout_mode = 2
+text = "Controls"
 
 [node name="Credits" type="Button" parent="MarginContainer/VBoxContainer/MenuOptions" unique_id=678455217]
 layout_mode = 2

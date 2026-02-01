@@ -26,6 +26,9 @@ var score: int = 0
 @onready var timer: Timer = $Timer as Timer
 @onready var audio_player: AudioStreamPlayer = $AudioStreamPlayer
 
+const save_file_path: String = "user://flag_jam.save"
+const save_section: String = "save"
+
 var current_round: Round:
 	get:
 		return rounds[current_round_index]
@@ -36,6 +39,7 @@ func _ready() -> void:
 	load_success_phrases()
 	load_rounds()
 	next_round()
+	audio_player.play()
 
 ## Load the success phrases from the provided text file
 func load_success_phrases() -> void:
@@ -68,10 +72,13 @@ func load_rounds() -> void:
 		
 ## Start the next round
 func next_round() -> void:
-	if current_round_index + 1 == rounds.size():
-		end_level()
-		return
-	current_round_index += 1
+	if endless:
+		current_round.randomize_round()
+	else:
+		if current_round_index + 1 == rounds.size():
+			end_level()
+			return
+		current_round_index += 1
 	
 	if not autostart:
 		return
@@ -81,10 +88,9 @@ func next_round() -> void:
 func start_round() -> void:
 	current_round.round_over.connect(_on_round_over)
 	current_round.player_state_changed.connect(_on_player_state_changed)
+	round_begun.emit(current_round)
 	current_round.start_game()
 	timer.start()
-	audio_player.play()
-	round_begun.emit(current_round)
 	new_player_selected.emit(current_round.current_flags)
 	new_answer_selected.emit(current_round.correct_answer)
 	new_choice_selected.emit(current_round.answer_choice)
@@ -93,8 +99,11 @@ func start_round() -> void:
 func end_level() -> void:
 	print_debug("You reached end of level...")
 	level_complete.emit()
+	audio_player.stop()
+	save_score()
 	
 	if next_scene_path.is_empty or !FileAccess.file_exists(next_scene_path):
+		print_debug("not switching scenes")
 		return
 		
 	print_debug("Switching to next scene")
@@ -114,7 +123,6 @@ func _on_round_over(won: bool) -> void:
 		print_debug("You won, moving to next round...")
 		var success_string: String = success_phrases.pick_random()
 		success_phrase.emit(success_string)
-		audio_player.stop()
 		score += 1
 		next_round()
 		return
@@ -122,13 +130,33 @@ func _on_round_over(won: bool) -> void:
 	if endless:
 		lives -= 1
 		level_lives_changed.emit(lives)
-	
-	if lives == 0:
-		level_lost.emit(score)
-		return
+		if lives == 0:
+			level_lost.emit(score)
+			end_level()
+			return
 	
 	print_debug("You lost, try again...")
 	start_round()
 		
 func _on_player_state_changed(new_state: FlagHolders) -> void:
 	new_player_selected.emit(new_state)
+	
+func get_saved_high_score() -> int:
+	if not FileAccess.file_exists(save_file_path):
+		return 0
+	
+	var save = ConfigFile.new()
+	save.load(save_file_path)
+	
+	return save.get_value(save_section, "high_score", 0) as int
+	
+	
+func save_score() -> void:
+	var save = ConfigFile.new()
+	var high_score: int = get_saved_high_score()
+	high_score = max(score, high_score)
+	
+	save.set_value(save_section, "high_score", high_score)
+	save.set_value(save_section, "score", score)
+	save.save(save_file_path)
+	

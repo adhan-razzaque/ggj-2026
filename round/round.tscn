@@ -14,16 +14,13 @@ metadata/_custom_type_script = "uid://4sug6kw4f6hp"
 [node name="CorrectAnswer" type="Node" parent="." unique_id=466124630]
 script = ExtResource("2_wl5wo")
 flags = 1
-width = 1
 metadata/_custom_type_script = "uid://6ggkcgl3gk5m"
 
 [node name="StartPoint" type="Node" parent="." unique_id=1180382835]
 script = ExtResource("2_wl5wo")
-width = 1
 metadata/_custom_type_script = "uid://6ggkcgl3gk5m"
 
 [node name="AnswerChoice" type="Node" parent="." unique_id=834213835]
 script = ExtResource("2_wl5wo")
 flags = 1
-width = 1
 metadata/_custom_type_script = "uid://6ggkcgl3gk5m"
