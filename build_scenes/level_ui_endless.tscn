@@ -67,7 +67,8 @@ layout_mode = 2
 [node name="SubmitButton" type="Button" parent="ControlsUIContainer/VBoxContainer" unique_id=1956454843]
 layout_mode = 2
 size_flags_horizontal = 4
-text = "Submit"
+text = "Send
+"
 
 [node name="ResetButton" type="Button" parent="ControlsUIContainer/VBoxContainer" unique_id=434117457]
 layout_mode = 2

@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://b1pjx3qk33gmt"]
 
 [ext_resource type="Script" uid="uid://b4js5bbt3to4c" path="res://level/level.gd" id="1_p5upd"]
-[ext_resource type="AudioStream" uid="uid://7vxmiiwd6ipi" path="res://level/main_v2_loopable.wav" id="2_01rkt"]
+[ext_resource type="AudioStream" uid="uid://nor527471x2u" path="res://level/tutorial_v2_loopable.wav" id="2_01rkt"]
 
 [node name="LevelBase" type="Node" unique_id=1262444287]
 script = ExtResource("1_p5upd")

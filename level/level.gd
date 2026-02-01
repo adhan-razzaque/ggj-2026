@@ -102,7 +102,7 @@ func end_level() -> void:
 	audio_player.stop()
 	save_score()
 	
-	if next_scene_path.is_empty or !FileAccess.file_exists(next_scene_path):
+	if next_scene_path.is_empty() or !FileAccess.file_exists(next_scene_path):
 		print_debug("not switching scenes")
 		return
 		
